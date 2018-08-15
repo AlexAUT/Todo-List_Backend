@@ -33,6 +33,7 @@ exports.register = function (req, res) {
     }
     if(!checkEmail(req.body.email)) {
       res.status(500).send(getAPIError(11));
+      return;
     }
 
     // Hash password
