@@ -16,11 +16,11 @@ exports.register = function(req, res) {
         const saltRounds = 10;
         bcrypt.genSalt(saltRounds, function(err, salt) {
             if(err)
-            res.send("Error in bcrypt salt generation!");
+            res.status(500).send("Error in bcrypt salt generation!");
             bcrypt.hash(req.body.password, salt, function(err, hash) {
                 if(err)
                 {
-                    res.send("Error in bcrypt hash generation!");
+                    res.status(500).send("Error in bcrypt hash generation!");
                     return;
                 }
                 req.body.passwordHash = hash;
@@ -29,14 +29,13 @@ exports.register = function(req, res) {
                 newUser.save(function(err, user) {
                     if(err)
                     {
-                        res.send(err);
+                        res.status(500).send(err);
                         return;
                     }
                     //Create indefinite token
                     jwt.sign({
                         data: { _id: user.id }
                       }, jwt_secret, { expiresIn: '87600h' }, function(err, token) {
-                        console.log("Token: ", token);
                         user.token = token;
                         res.json(user);
                     });
