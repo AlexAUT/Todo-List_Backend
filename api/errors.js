@@ -39,6 +39,14 @@ module.exports = function (errorCode) {
     9: {
       code: 9,
       message: "You tried to update a todolist which did not belong to you!",
+    },
+    10: {
+      code: 10,
+      message: "The password has to have at least 6 characters!",
+    },
+    11: {
+      code: 11,
+      message: "Only letters and numbers are allowed in the username!",
     }
   };
 

@@ -10,9 +10,31 @@ if (!jwt_secret)
 var mongoose = require('mongoose');
 const User = mongoose.model('User');
 
+const checkPassword = (password) => {
+  return password.length < 6;
+}
+
+const checkEmail = (email) => {
+  var regExp = /^[A-Za-z0-9]+$/;
+  if(email.length == 0)
+    return true;
+  if(!email.match(regExp))
+    return true;
+
+  return false;
+}
 
 exports.register = function (req, res) {
   if (req.body && req.body.password) {
+    // Check password and email/username requirements
+    if(!checkPassword(req.body.password)) {
+      res.status(500).send(getAPIError(10));
+      return;
+    }
+    if(!checkEmail(req.body.email)) {
+      res.status(500).send(getAPIError(11));
+    }
+
     // Hash password
     const saltRounds = 10;
     bcrypt.genSalt(saltRounds, function (err, salt) {
