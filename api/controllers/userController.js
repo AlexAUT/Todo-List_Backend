@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 const checkPassword = (password) => {
-  return password.length < 6;
+  return password.length >= 6;
 }
 
 const checkEmail = (email) => {
