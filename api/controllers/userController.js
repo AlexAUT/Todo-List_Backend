@@ -86,7 +86,7 @@ exports.login = function (req, res) {
           if (err) {
             res.status(401).send(getAPIError(5));
           } else if (!same) {
-            res.status(401).send(getAPIError(500));
+            res.status(401).send(getAPIError(5));
           } else {
             jwt.sign({
               data: { _id: user.id }
