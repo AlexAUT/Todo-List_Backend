@@ -16,12 +16,7 @@ const checkPassword = (password) => {
 
 const checkEmail = (email) => {
   var regExp = /^[A-Za-z0-9]+$/;
-  if(email.length == 0)
-    return true;
-  if(!email.match(regExp))
-    return true;
-
-  return false;
+  return email.match(regExp);
 }
 
 exports.register = function (req, res) {
